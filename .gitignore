@@ -1,0 +1,5 @@
+# Clion IDE CMake build & config
+.idea/
+cmake-build*/
+logs/
+modplayer
