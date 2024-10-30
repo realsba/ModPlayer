@@ -37,11 +37,11 @@ make
 
 ## Usage
 ```bash
-./ModPlayer <filename>
+./cmake-build/examples/ModPlayerExample <filename>
 ```
 
 ## Project Structure
-- src Contains the source code files for the server
+- src Contains the source code files
 
 ## Technologies Used
 - C++ (C++23)
