@@ -75,7 +75,7 @@ void Module::load(const std::string& fileName)
             for (auto& channel : _patterns[pattern].rows) {
                 _file.read(reinterpret_cast<char*>(buffer), 4);
                 auto& note       = channel[row];
-                note.instrument  = buffer[0] & 0xF0 | buffer[2] >> 4;
+                note.instrument  = (buffer[0] & 0xF0) | (buffer[2] >> 4);
                 note.period      = (buffer[0] & 0x0F) << 8 | buffer[1];
                 note.effect      = static_cast<Note::Effect>(buffer[2] & 0x0F);
                 note.effectValue = buffer[3];
