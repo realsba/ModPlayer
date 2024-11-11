@@ -8,7 +8,7 @@ std::string toString(Note::Effect effect)
         case Note::Effect::Arpeggio: return "Arpeggio";
         case Note::Effect::SlideUp: return "Slide Up";
         case Note::Effect::SlideDown: return "Slide Down";
-        case Note::Effect::SlideToNote: return "Tone Portamento";
+        case Note::Effect::SlideToNote: return "Slide to note";
         case Note::Effect::Vibrato: return "Vibrato";
         case Note::Effect::SlideToNoteVolumeSlide: return "Tone Portamento & Volume Slide";
         case Note::Effect::VibratoVolumeSlide: return "Vibrato & Volume Slide";

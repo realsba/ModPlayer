@@ -9,7 +9,9 @@ SlideToNote::SlideToNote(Channel& channel)
 
 void SlideToNote::init(uint8_t delta, uint16_t destPeriod)
 {
-    _destPeriod = destPeriod;
+    if (destPeriod) {
+        _destPeriod = destPeriod;
+    }
     if (delta) {
         _delta = delta;
     }
