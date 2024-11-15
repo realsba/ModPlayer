@@ -7,13 +7,15 @@ Vibrato::Vibrato(Channel& channel)
 {
 }
 
-void Vibrato::init(uint8_t rate, uint8_t depth)
+void Vibrato::init(uint8_t speed, uint8_t depth)
 {
-    _rate = rate;
+    _speed = speed;
     _depth = depth;
 }
 
 void Vibrato::apply()
 {
-    // TODO: implement
+    const auto data = SINE_TABLE[_position] * _depth / 128;
+    _position = (_position + _speed) % SINE_TABLE_SIZE;
+    _channel.setFrequency(_channel.getPeriod() + data);
 }

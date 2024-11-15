@@ -65,9 +65,12 @@ void Module::load(const std::string& fileName)
     _file.read(reinterpret_cast<char*>(_patternOrder.data()), _songLength);
     const auto patternCount = *std::max_element(_patternOrder.begin(), _patternOrder.end()) + 1;
 
-    // mod file format tag
     _file.seekg(1080);
-    _file.read(reinterpret_cast<char*>(buffer), 4);
+    std::string format(4, '\0');
+    _file.read(format.data(), 4);
+    if (format != "M.K.") {
+        throw std::runtime_error("Unsupported format: " + format);
+    }
 
     _patterns = std::make_unique<Pattern[]>(patternCount);
     for (int pattern = 0; pattern < patternCount; ++pattern) {
@@ -91,16 +94,16 @@ void Module::load(const std::string& fileName)
     updateRow();
 }
 
-int16_t Module::getFrame()
+int16_t Module::getSample()
 {
     int32_t output = 0;
 
     for (const auto& channel : _channels) {
-        output += channel->getFrame();
+        output += channel->getSample();
     }
 
-    if (--_frameCounter <= 0) {
-        _frameCounter += _mixerFrequency * 2.5 / _bpm;
+    if (--_sampleCounter <= 0) {
+        _sampleCounter += _mixerFrequency * 2.5 / _bpm;
         if (++_tickCounter == _speed) {
             _tickCounter = 0;
             nextRow();

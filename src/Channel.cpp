@@ -67,7 +67,7 @@ void Channel::setVolume(uint8_t value)
     _volume = value <= MAX_VOLUME ? value : MAX_VOLUME;
 }
 
-int16_t Channel::getFrame()
+int16_t Channel::getSample()
 {
     if (!_instrument || _samplePosition >= _instrument->sampleLength) {
         return 0;
@@ -88,10 +88,6 @@ int16_t Channel::getFrame()
 
 void Channel::tick()
 {
-    if (!_instrument || _period == 0) {
-        return;
-    }
-
     if (_effect) {
         _effect->apply();
     }
@@ -99,11 +95,16 @@ void Channel::tick()
 
 void Channel::update(const Note& note)
 {
-    if (note.effectValue) {
-        std::cout << toString(note.effect) << std::endl;
+    if (note.effect != Note::Effect::Arpeggio || note.effectValue) {
+        std::cout << " \033[31mChannel::update:\033[0m"
+            << " " << static_cast<int>(note.instrument)
+            << " " << note.period
+            << " " << toString(note.effect)
+            << " " << static_cast<int>(note.effectValue)
+            << std::endl;
     }
 
-    if (note.period != 0) {
+    if (note.period) {
         if (note.effect == Note::Effect::SlideToNote) {
             // TODO: implement
         } else {
@@ -112,7 +113,7 @@ void Channel::update(const Note& note)
         }
     }
 
-    if (note.instrument != 0) {
+    if (note.instrument) {
         _instrument = &_instruments[note.instrument - 1];
         _volume     = _instrument->volume;
         if (note.effect == Note::Effect::SlideToNote) {
@@ -167,7 +168,7 @@ void Channel::update(const Note& note)
         case Note::Effect::SetVolume:
             _volume = note.effectValue;
             break;
-        default: ;
+        default:
+            _effect = nullptr;
     }
 }
-

@@ -19,8 +19,7 @@ public:
 
 private:
     static constexpr int MAX_FINE_TUNE = 16;
-
-    static constexpr std::array<double, MAX_FINE_TUNE> _fineTuneFactors = []
+    static constexpr std::array<double, MAX_FINE_TUNE> FINE_TUNE_FACTORS = []
     {
         auto halfToneFactor = std::pow(2.0, -1.0 / (12.0 * 8.0));
         std::array<double, MAX_FINE_TUNE> factors {};

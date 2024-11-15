@@ -80,7 +80,7 @@ public:
     [[nodiscard]] uint8_t getVolume() const;
     void setVolume(uint8_t value);
 
-    int16_t getFrame();
+    int16_t getSample();
     void tick();
     void update(const Note& note);
 

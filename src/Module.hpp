@@ -20,7 +20,7 @@ public:
 
     void load(const std::string& fileName);
 
-    int16_t getFrame();
+    int16_t getSample();
     uint32_t getTickCounter() const;
 
 private:
@@ -32,7 +32,7 @@ private:
     std::vector<Instrument> _instruments {MAX_INSTRUMENTS};
     std::vector<uint8_t> _patternOrder;
     std::unique_ptr<Pattern[]> _patterns {nullptr};
-    double _frameCounter {0};
+    double _sampleCounter {0};
     const uint32_t _mixerFrequency {0};
     std::optional<int8_t> _patternBreakRowIndex {-1};
     uint32_t _tickCounter {0};

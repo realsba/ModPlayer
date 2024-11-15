@@ -11,11 +11,11 @@ Arpeggio::Arpeggio(Module& module, Channel& channel)
 
 void Arpeggio::init(int x, int y)
 {
-    auto period = _channel.getPeriod();
+    const auto period = _channel.getPeriod();
 
     _period[0] = period;
-    _period[1] = period * _fineTuneFactors[x];
-    _period[2] = period * _fineTuneFactors[y];
+    _period[1] = static_cast<uint16_t>(period * FINE_TUNE_FACTORS[x]);
+    _period[2] = static_cast<uint16_t>(period * FINE_TUNE_FACTORS[y]);
 }
 
 void Arpeggio::apply()
